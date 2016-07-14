@@ -7,6 +7,12 @@ defmodule ElloClick.PlugTest do
   @amazon_url "https://www.amazon.com/Mountain-Mens-Three-T-Shirt-Medium/dp/B007I4HHX4"
   @affiliated_amazon_url "https://www.amazon.com/Mountain-Mens-Three-T-Shirt-Medium/dp/B007I4HHX4?tag=viglink22575-20"
 
+  test "it redirects to ello.co when no path is present" do
+    conn = get("")
+    assert conn.status == 301
+    assert "https://ello.co" in Conn.get_resp_header(conn, "location")
+  end
+
   test "returns url with no changes when viglink key is not present" do
     conn = get(@amazon_url)
     assert conn.status == 301

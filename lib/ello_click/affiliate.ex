@@ -17,6 +17,8 @@ defmodule ElloClick.Affiliate do
   end
 
   # Strip leading slash
+  defp clean("/"),        do: {:ok, "https://ello.co"}
+  defp clean(""),         do: {:ok, "https://ello.co"}
   defp clean("/" <> url), do: url
   defp clean(url),        do: url
 

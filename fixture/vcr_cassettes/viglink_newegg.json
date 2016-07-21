@@ -1,0 +1,28 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "http://api.viglink.com/api/click?format=txt&key=88ac2a40e081e283ac504d1789d398ac&loc=https%3A%2F%2Fello.co%2F&out=http%3A%2F%2Fwww.newegg.com%2FProduct%2FProduct.aspx%3FItem%3DN82E16879261644"
+    },
+    "response": {
+      "body": "http://www.dpbolvw.net/click-6154407-10446076?sid=iqmowped5e00fbg300053&url=http%3A%2F%2Fwww.newegg.com%2FProduct%2FProduct.aspx%3FItem%3DN82E16879261644",
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Date": "Thu, 14 Jul 2016 19:09:46 GMT",
+        "Expires": "Thu, 01 Jan 1970 00:00:00 GMT",
+        "P3P": "CP=\"ALL IND DSP COR CUR ADM TAIo PSDo OUR COM INT NAV PUR STA UNI\"",
+        "Pragma": "no-cache",
+        "Server": "Apache-Coyote/1.1",
+        "Set-Cookie": "vglnk.Agent.p=7425cdefd3e4319602a1ef36e57d341b; Domain=.viglink.com; Expires=Sun, 12-Jul-2026 19:09:47 GMT; Path=/",
+        "Content-Length": "153",
+        "Connection": "keep-alive"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

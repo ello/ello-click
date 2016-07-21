@@ -6,6 +6,19 @@ defmodule ElloClick.PlugTest do
 
   @amazon_url "https://www.amazon.com/Mountain-Mens-Three-T-Shirt-Medium/dp/B007I4HHX4"
   @affiliated_amazon_url "https://www.amazon.com/Mountain-Mens-Three-T-Shirt-Medium/dp/B007I4HHX4?tag=viglink22575-20"
+  @newegg_url "http://www.newegg.com/Product/Product.aspx?Item=N82E16879261644"
+  @affiliated_newegg_url "http://www.dpbolvw.net/click-6154407-10446076?sid=iqmowped5e00fbg300053&url=http%3A%2F%2Fwww.newegg.com%2FProduct%2FProduct.aspx%3FItem%3DN82E16879261644"
+
+  setup do
+    teardown_viglink
+    :ok
+  end
+
+  test "it redirects to ello.co when no path is present" do
+    conn = get("")
+    assert conn.status == 301
+    assert "https://ello.co" in Conn.get_resp_header(conn, "location")
+  end
 
   test "returns url with no changes when viglink key is not present" do
     conn = get(@amazon_url)
@@ -14,12 +27,20 @@ defmodule ElloClick.PlugTest do
   end
 
   test "returns an affiliated link when viglink key is present" do
+    setup_viglink
     use_cassette "viglink_amazon", match_request_on: [:query] do
-      setup_viglink
       conn = get(@amazon_url)
       assert conn.status == 301
       assert @affiliated_amazon_url in Conn.get_resp_header(conn, "location")
-      teardown_viglink
+    end
+  end
+
+  test "it handles sending urls with query params to viglink properly" do
+    setup_viglink
+    use_cassette "viglink_newegg", match_request_on: [:query] do
+      conn = get(@newegg_url)
+      assert conn.status == 301
+      assert @affiliated_newegg_url in Conn.get_resp_header(conn, "location")
     end
   end
 

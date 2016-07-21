@@ -44,6 +44,14 @@ defmodule ElloClick.PlugTest do
     end
   end
 
+  test "it gracefully handles invalid urls" do
+    setup_viglink
+    conn = get("notaurl")
+    assert conn.status == 404
+    assert conn.resp_body =~ ~r/ello/
+    assert conn.resp_body =~ ~r/html/
+  end
+
   @opts ElloClick.Plug.init([])
   defp get(path, referer \\ "https://ello.co/") do
     conn(:get, "http://click.ello.co/" <> path)

@@ -1,8 +1,9 @@
 defmodule ElloClick.Plug do
   use Plug.Builder
   use Honeybadger.Plug
-  alias ElloClick.{Validate,Affiliate}
+  alias ElloClick.{Status,Validate,Affiliate}
 
+  plug Status
   plug Validate
   plug Affiliate
   plug :redirect

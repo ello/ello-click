@@ -31,6 +31,7 @@ defmodule ElloClick.Mixfile do
     [
       {:plug, "~> 1.0"},
       {:cowboy, "~> 1.0"},
+      {:honeybadger, "~> 0.5"},
       {:httpoison, "~> 0.9.0"},
       {:exvcr, "~> 0.7", only: :test},
     ]

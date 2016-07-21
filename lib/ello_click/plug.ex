@@ -1,5 +1,6 @@
 defmodule ElloClick.Plug do
   use Plug.Builder
+  use Honeybadger.Plug
   alias ElloClick.Affiliate
 
   plug Affiliate

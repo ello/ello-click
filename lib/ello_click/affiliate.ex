@@ -10,23 +10,15 @@ defmodule ElloClick.Affiliate do
   end
 
   defp affiliate(conn) do
-    conn
-    |> full_url
-    |> clean
+    conn.assigns.url
+    |> skip_ello
     |> VigLink.affiliate(conn)
     |> fallback
   end
 
-  # Include query params if url has them
-  defp full_url(%{request_path: path, query_string: nil}), do: path
-  defp full_url(%{request_path: path, query_string: ""}),  do: path
-  defp full_url(%{request_path: path, query_string: q}),   do: path <> "?" <> q
-
-  # Strip leading slash
-  defp clean("/"),        do: {:ok, "https://ello.co"}
-  defp clean(""),         do: {:ok, "https://ello.co"}
-  defp clean("/" <> url), do: url
-  defp clean(url),        do: url
+  defp skip_ello("http://ello.co" <> _ = ello),  do: {:ok, ello}
+  defp skip_ello("https://ello.co" <> _ = ello), do: {:ok, ello}
+  defp skip_ello(not_ello), do: not_ello
 
   # Ensure we always return {:ok, link}
   defp fallback({:ok, affiliated}), do: {:ok, affiliated}

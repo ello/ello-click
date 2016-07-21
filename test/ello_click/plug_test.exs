@@ -44,6 +44,12 @@ defmodule ElloClick.PlugTest do
     end
   end
 
+  test "it returns 200 okay to /status" do
+    conn = get("status")
+    assert conn.status == 200
+    assert conn.resp_body == "okay"
+  end
+
   test "it gracefully handles invalid urls" do
     setup_viglink
     conn = get("notaurl")

@@ -2,7 +2,7 @@ defmodule ElloClick.Affiliate.VigLink do
   alias Plug.Conn
 
   # Don't re-affiliate links something further up the chain got
-  def affiliate({:ok, affiliated}, conn), do: {:ok, affiliated}
+  def affiliate({:ok, affiliated}, _conn), do: {:ok, affiliated}
 
   def affiliate(unaffiliated, conn) do
     call_api(config.key, unaffiliated, referer(conn))

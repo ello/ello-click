@@ -1,26 +1,30 @@
 defmodule ElloClick.Affiliate do
-  alias ElloClick.Affiliate.VigLink
+  alias ElloClick.Affiliate.{VigLink,Link}
   @behaviour Plug
 
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    {:ok, url} = affiliate(conn)
-    Plug.Conn.put_resp_header(conn, "location", url)
+    link = affiliate(conn)
+    Plug.Conn.put_resp_header(conn, "location", link.affiliated)
   end
 
   defp affiliate(conn) do
-    conn.assigns.url
-    |> skip_ello
+    %Link{original: conn.assigns.url}
+    |> handle_ello
     |> VigLink.affiliate(conn)
     |> fallback
   end
 
-  defp skip_ello("http://ello.co" <> _ = ello),  do: {:ok, ello}
-  defp skip_ello("https://ello.co" <> _ = ello), do: {:ok, ello}
-  defp skip_ello(not_ello), do: not_ello
+  defp handle_ello(%Link{is_affiliated: true} = link), do: link
+  defp handle_ello(%Link{original: "http://ello.co" <> _} = link),
+    do: Link.affiliate(link, link.original)
+  defp handle_ello(%Link{original: "https://ello.co" <> _} = link),
+    do: Link.affiliate(link, link.original)
+  defp handle_ello(%Link{original: "https://ello.ninja" <> _} = link),
+    do: Link.affiliate(link, link.original)
+  defp handle_ello(%Link{} = link), do: link
 
-  # Ensure we always return {:ok, link}
-  defp fallback({:ok, affiliated}), do: {:ok, affiliated}
-  defp fallback(unaffiliated), do:      {:ok, unaffiliated}
+  defp fallback(%Link{is_affiliated: true} = link), do: link
+  defp fallback(link), do: Link.affiliate(link, link.original)
 end

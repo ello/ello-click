@@ -1,5 +1,5 @@
 defmodule ElloClick.Affiliate do
-  alias ElloClick.Affiliate.{VigLink,Link}
+  alias ElloClick.Affiliate.{VigLink,Link,Threadless}
   @behaviour Plug
 
   def init(opts), do: opts
@@ -12,6 +12,7 @@ defmodule ElloClick.Affiliate do
   defp affiliate(conn) do
     %Link{original: conn.assigns.url}
     |> handle_ello
+    |> Threadless.affiliate(conn)
     |> VigLink.affiliate(conn)
     |> fallback
   end

@@ -7,6 +7,10 @@ config :ello_click, viglink: %{
   key: System.get_env("VIGLINK_KEY"),
 }
 
+config :ello_click, threadless: %{
+  clickid: System.get_env("THREADLESS_CLICKID"),
+}
+
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this
 # file won't be loaded nor affect the parent project. For this reason,

@@ -8,9 +8,12 @@ defmodule ElloClick.PlugTest do
   @affiliated_amazon_url "https://www.amazon.com/Mountain-Mens-Three-T-Shirt-Medium/dp/B007I4HHX4?tag=viglink22575-20"
   @newegg_url "http://www.newegg.com/Product/Product.aspx?Item=N82E16879261644"
   @affiliated_newegg_url "http://www.dpbolvw.net/click-6154407-10446076?sid=iqmowped5e00fbg300053&url=http%3A%2F%2Fwww.newegg.com%2FProduct%2FProduct.aspx%3FItem%3DN82E16879261644"
+  @threadless_url "https://www.threadless.com/product/7600/MTN_LP/tab,guys?utm_campaign=27795&utm_medium=affiliate&utm_source=ImpactRadius"
+  @affiliated_threadless_url "https://www.threadless.com/product/7600/MTN_LP/tab,guys?clickid=madeupkey&utm_campaign=27795&utm_medium=affiliate&utm_source=ImpactRadius"
 
   setup do
     teardown_viglink
+    teardown_threadless
     :ok
   end
 
@@ -19,6 +22,29 @@ defmodule ElloClick.PlugTest do
     assert conn.status == 301
     assert "https://ello.co" in Conn.get_resp_header(conn, "location")
   end
+
+  test "returns url with no changes when threadless key is not present" do
+    conn = get(@threadless_url)
+    assert conn.status == 301
+    assert @threadless_url in Conn.get_resp_header(conn, "location")
+  end
+
+  test "returns affiliate threadless url when threadless affiliate id is present" do
+    setup_threadless
+    conn = get(@threadless_url)
+    assert conn.status == 301
+    assert @affiliated_threadless_url in Conn.get_resp_header(conn, "location")
+  end
+
+  test "does not re-affiliate threadless urls" do
+    setup_threadless
+    previously_affiliated_url = @threadless_url <> "&clickid=previousaffiliate"
+    conn = get(previously_affiliated_url)
+    assert conn.status == 301
+    refute @affiliated_threadless_url in Conn.get_resp_header(conn, "location")
+    assert previously_affiliated_url in Conn.get_resp_header(conn, "location")
+  end
+
 
   test "returns url with no changes when viglink key is not present" do
     conn = get(@amazon_url)
@@ -77,5 +103,13 @@ defmodule ElloClick.PlugTest do
       url: Application.get_env(:ello_click, :viglink).url,
       key: nil,
     })
+  end
+
+  defp setup_threadless do
+    Application.put_env(:ello_click, :threadless, %{ clickid: "madeupkey" })
+  end
+
+  defp teardown_threadless do
+    Application.put_env(:ello_click, :threadless, %{ clickid: nil })
   end
 end

@@ -20,8 +20,8 @@ defmodule ElloClick.Affiliate.VigLink do
       out: out
     ]
     case HTTPoison.get(config.url, [], params: params) do
-      {:ok, %{body: body}} -> {:ok, body} # Successfull api response
-      _                    -> {:ok, out}  # Failed - just return original link
+      {:ok, %{body: body, status_code: 200}} -> {:ok, body} # Successfull api response
+      _                                      -> {:ok, out}  # Failed - just return original link
     end
   end
 

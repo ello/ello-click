@@ -26,6 +26,21 @@ defmodule ElloClick.PlugTest do
     assert @amazon_url in Conn.get_resp_header(conn, "location")
   end
 
+  test "it handles wierd domain - no viglink" do
+    conn = get("http://hilo.shop/blink.html")
+    assert conn.status == 301
+    assert "http://hilo.shop/blink.html" in Conn.get_resp_header(conn, "location")
+  end
+
+  test "it handles wierd domain - with viglink" do
+    setup_viglink
+    use_cassette "viglink_hilo_shop", match_request_on: [:query] do
+      conn = get("http://hilo.shop/blink.html")
+      assert conn.status == 301
+      assert "http://hilo.shop/blink.html" in Conn.get_resp_header(conn, "location")
+    end
+  end
+
   test "returns an affiliated link when viglink key is present" do
     setup_viglink
     use_cassette "viglink_amazon", match_request_on: [:query] do

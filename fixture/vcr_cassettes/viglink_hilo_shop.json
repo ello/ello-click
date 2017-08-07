@@ -1,0 +1,28 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "http://api.viglink.com/api/click?format=txt&key=88ac2a40e081e283ac504d1789d398ac&loc=https%3A%2F%2Fello.co%2F&out=http%3A%2F%2Fhilo.shop%2Fblink.html"
+    },
+    "response": {
+      "body": "Invalid request: Invalid domain",
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Date": "Mon, 07 Aug 2017 18:44:31 GMT",
+        "Expires": "Thu, 01 Jan 1970 00:00:00 GMT",
+        "P3P": "CP=\"ALL IND DSP COR CUR ADM TAIo PSDo OUR COM INT NAV PUR STA UNI\"",
+        "Pragma": "no-cache",
+        "Server": "Apache-Coyote/1.1",
+        "Set-Cookie": "vglnk.Agent.p=38255d4b79102a300dab9dafc17dd367; Domain=.viglink.com; Expires=Thu, 05-Aug-2027 18:44:31 GMT; Path=/",
+        "Content-Length": "31",
+        "Connection": "keep-alive"
+      },
+      "status_code": 400,
+      "type": "ok"
+    }
+  }
+]

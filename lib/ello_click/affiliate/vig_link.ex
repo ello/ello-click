@@ -1,11 +1,13 @@
 defmodule ElloClick.Affiliate.VigLink do
   alias Plug.Conn
+  alias ElloClick.Affiliate.Link
 
   # Don't re-affiliate links something further up the chain got
-  def affiliate({:ok, affiliated}, _conn), do: {:ok, affiliated}
+  def affiliate(%Link{is_affiliated: true} = link, _conn), do: link
 
-  def affiliate(unaffiliated, conn) do
-    call_api(config.key, unaffiliated, referer(conn))
+  def affiliate(link, conn) do
+    {:ok, affiliated} = call_api(config.key, link.original, referer(conn))
+    Link.affiliate(link, affiliated)
   end
 
   # No API key

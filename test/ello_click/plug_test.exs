@@ -8,6 +8,7 @@ defmodule ElloClick.PlugTest do
   @affiliated_amazon_url "https://www.amazon.com/Mountain-Mens-Three-T-Shirt-Medium/dp/B007I4HHX4?tag=viglink22575-20"
   @newegg_url "http://www.newegg.com/Product/Product.aspx?Item=N82E16879261644"
   @affiliated_newegg_url "http://www.dpbolvw.net/click-6154407-10446076?sid=iqmowped5e00fbg300053&url=http%3A%2F%2Fwww.newegg.com%2FProduct%2FProduct.aspx%3FItem%3DN82E16879261644"
+  @vimeo_url "https://vimeo.com/12345"
 
   setup do
     teardown_viglink
@@ -57,6 +58,13 @@ defmodule ElloClick.PlugTest do
       assert conn.status == 301
       assert @affiliated_newegg_url in Conn.get_resp_header(conn, "location")
     end
+  end
+
+  test "it handles vimeo urls" do
+    setup_viglink
+    conn = get(@vimeo_url)
+    assert conn.status == 301
+    assert @vimeo_url in Conn.get_resp_header(conn, "location")
   end
 
   test "it returns 200 okay to /status" do

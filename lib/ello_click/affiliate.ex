@@ -12,6 +12,7 @@ defmodule ElloClick.Affiliate do
   defp affiliate(conn) do
     conn.assigns.url
     |> skip_ello
+    |> skip_vimeo
     |> VigLink.affiliate(conn)
     |> fallback
   end
@@ -19,6 +20,10 @@ defmodule ElloClick.Affiliate do
   defp skip_ello("http://ello.co" <> _ = ello),  do: {:ok, ello}
   defp skip_ello("https://ello.co" <> _ = ello), do: {:ok, ello}
   defp skip_ello(not_ello), do: not_ello
+
+  defp skip_vimeo("http://vimeo" <> _ = vimeo),  do: {:ok, vimeo}
+  defp skip_vimeo("https://vimeo" <> _ = vimeo), do: {:ok, vimeo}
+  defp skip_vimeo(not_vimeo), do: not_vimeo
 
   # Ensure we always return {:ok, link}
   defp fallback({:ok, affiliated}), do: {:ok, affiliated}

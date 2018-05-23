@@ -4,10 +4,10 @@ defmodule ElloClick.Mixfile do
   def project do
     [app: :ello_click,
      version: "0.0.1",
-     elixir: "~> 1.3",
+     elixir: "~> 1.6",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     deps: deps()]
   end
 
   # Configuration for the OTP application
@@ -29,11 +29,11 @@ defmodule ElloClick.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:plug, "~> 1.0"},
+      {:plug, "~> 1.5"},
       {:cowboy, "~> 1.0"},
       {:honeybadger, "~> 0.5"},
-      {:httpoison, "~> 0.9.0"},
-      {:exvcr, "~> 0.7", only: :test},
+      {:httpoison, "~> 1.1"},
+      {:exvcr, "~> 0.10", only: :test},
     ]
   end
 end

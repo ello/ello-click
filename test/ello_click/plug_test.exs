@@ -11,7 +11,7 @@ defmodule ElloClick.PlugTest do
   @vimeo_url "https://vimeo.com/12345"
 
   setup do
-    teardown_viglink
+    teardown_viglink()
     :ok
   end
 
@@ -34,7 +34,7 @@ defmodule ElloClick.PlugTest do
   end
 
   test "it handles wierd domain - with viglink" do
-    setup_viglink
+    setup_viglink()
     use_cassette "viglink_hilo_shop", match_request_on: [:query] do
       conn = get("http://hilo.shop/blink.html")
       assert conn.status == 301
@@ -43,7 +43,7 @@ defmodule ElloClick.PlugTest do
   end
 
   test "returns an affiliated link when viglink key is present" do
-    setup_viglink
+    setup_viglink()
     use_cassette "viglink_amazon", match_request_on: [:query] do
       conn = get(@amazon_url)
       assert conn.status == 301
@@ -52,7 +52,7 @@ defmodule ElloClick.PlugTest do
   end
 
   test "it handles sending urls with query params to viglink properly" do
-    setup_viglink
+    setup_viglink()
     use_cassette "viglink_newegg", match_request_on: [:query] do
       conn = get(@newegg_url)
       assert conn.status == 301
@@ -61,7 +61,7 @@ defmodule ElloClick.PlugTest do
   end
 
   test "it handles vimeo urls" do
-    setup_viglink
+    setup_viglink()
     conn = get(@vimeo_url)
     assert conn.status == 301
     assert @vimeo_url in Conn.get_resp_header(conn, "location")
@@ -74,7 +74,7 @@ defmodule ElloClick.PlugTest do
   end
 
   test "it gracefully handles invalid urls" do
-    setup_viglink
+    setup_viglink()
     conn = get("notaurl")
     assert conn.status == 404
     assert conn.resp_body =~ ~r/ello/

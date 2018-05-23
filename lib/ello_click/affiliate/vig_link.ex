@@ -5,7 +5,7 @@ defmodule ElloClick.Affiliate.VigLink do
   def affiliate({:ok, affiliated}, _conn), do: {:ok, affiliated}
 
   def affiliate(unaffiliated, conn) do
-    call_api(config.key, unaffiliated, referer(conn))
+    call_api(config().key, unaffiliated, referer(conn))
   end
 
   # No API key
@@ -19,7 +19,7 @@ defmodule ElloClick.Affiliate.VigLink do
       loc: location,
       out: out
     ]
-    case HTTPoison.get(config.url, [], params: params) do
+    case HTTPoison.get(config().url, [], params: params) do
       {:ok, %{body: body, status_code: 200}} -> {:ok, body} # Successfull api response
       _                                      -> {:ok, out}  # Failed - just return original link
     end

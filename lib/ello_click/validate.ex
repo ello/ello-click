@@ -32,11 +32,11 @@ defmodule ElloClick.Validate do
   defp extract_url(%{request_path: path, query_string: ""}),  do: path
   defp extract_url(%{request_path: path, query_string: q}),   do: path <> "?" <> q
 
-  defp clean_url("/https://u.to/" <> _), do: "https://ello.co" # BAD url -> ello.co
-  defp clean_url("/"),        do: "https://ello.co" # No url -> ello.co
-  defp clean_url(""),         do: "https://ello.co" # No url -> ello.co
-  defp clean_url("/" <> url), do: url # Strip leading slash
-  defp clean_url(url),        do: url
+  defp clean_url("/https://u.to/" <> _),  do: "https://ello.co" # BAD url -> ello.co
+  defp clean_url("/"),                    do: "https://ello.co" # No url -> ello.co
+  defp clean_url(""),                     do: "https://ello.co" # No url -> ello.co
+  defp clean_url("/" <> url),             do: url # Strip leading slash
+  defp clean_url(url),                    do: url
 
   defp render_404(conn) do
     halt send_file(conn, 404, "priv/static/404.html")

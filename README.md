@@ -2,7 +2,7 @@
 
 # Ello Click - External link affiliation
 
-[![Build Status](https://travis-ci.org/ello/ello-click.svg?branch=master)](https://travis-ci.org/ello/ello-click)
+[![Build Status](https://travis-ci.com/ello/ello-click.svg?branch=main)](https://travis-ci.com/ello/ello-click)
 
 Within Ello external links in posts are rewriten to point to this service.
 
@@ -14,16 +14,20 @@ effect artist revenue. The end user is then redirected to the affiliated url.
 
 This is a vanilla Elixir Plug application, getting started is pretty easy:
 
-* Install exenv/Elixir 1.3
-* Clone this repo
-* Run `mix deps.get`
-* Run the test suite with `mix test`
-
-##### Deployment, Operations, and Gotchas
-To be written
+- Install exenv/Elixir 1.6
+- Clone this repo
+- Run `mix deps.get`
+- Run the test suite with `mix test`
 
 ## License
-ElloClick is released under the [MIT License](blob/master/LICENSE.txt)
+
+ElloClick is released under the [MIT License](blob/main/LICENSE.txt)
 
 ## Code of Conduct
-Ello was created by idealists who believe that the essential nature of all human beings is to be kind, considerate, helpful, intelligent, responsible, and respectful of others. To that end, we will be enforcing [the Ello rules](https://ello.co/wtf/policies/rules/) within all of our open source projects. If you don’t follow the rules, you risk being ignored, banned, or reported for abuse.
+
+Ello was created by idealists who believe that the essential nature of all human
+beings is to be kind, considerate, helpful, intelligent, responsible, and
+respectful of others. To that end, we will be enforcing
+[the Ello rules](https://ello.co/wtf/policies/) within all of our open
+source projects. If you don’t follow the rules, you risk being ignored, banned,
+or reported for abuse.
